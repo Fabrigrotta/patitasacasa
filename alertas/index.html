@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Patitas a Casa | Feed de Alertas &amp; Radar Vecinal</title>
+  
+  <!-- Fuentes Google: Plus Jakarta Sans & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- Estilos compilados con Tailwind (separados de HTML) -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)] border-b border-surface-container/60">
+    <div class="h-20 max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between gap-space-lg">
+      
+      <!-- Logo de la Red -->
+      <a href="../index.html" class="flex items-center gap-space-md shrink-0 group">
+        <div class="w-12 h-12 rounded-2xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm group-hover:scale-105 transition-transform">
+          <span class="material-symbols-outlined text-[26px]">pets</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm font-extrabold text-primary leading-tight tracking-tight">Patitas a Casa</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-bold tracking-wider uppercase">Red Solidaria Vecinal</span>
+        </div>
+      </a>
+
+      <!-- Selector Rápido de Zona Barrial -->
+      <div class="hidden xl:flex items-center flex-1 max-w-md bg-surface-container-low hover:bg-surface-container rounded-2xl px-space-md py-2.5 transition-colors shadow-sm border border-surface-container/50">
+        <span class="material-symbols-outlined text-primary text-[22px] mr-space-sm">location_on</span>
+        <div class="flex flex-col flex-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Zona de Cobertura Activa</span>
+          <span class="font-label-md text-label-md text-on-surface font-extrabold truncate mt-0.5">Palermo Soho, CABA</span>
+        </div>
+        <span class="material-symbols-outlined text-outline text-[20px] ml-space-xs">expand_more</span>
+      </div>
+
+      <!-- Navegación Principal -->
+      <nav class="hidden lg:flex items-center gap-2">
+        <a class="px-space-md py-2.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold rounded-xl shadow-sm transition-all" href="./index.html">Feed de Alertas</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../mapa/index.html">Mapa Radar</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../transito/index.html">Hogares de Tránsito</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../publicar/index.html">Publicar Alerta</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../perfil/index.html">Mis Reportes</a>
+      </nav>
+
+      <!-- Botones de Acción & Usuario -->
+      <div class="flex items-center gap-space-md shrink-0">
+        <a class="hidden sm:flex items-center gap-2 px-space-md py-2.5 rounded-xl bg-secondary/10 text-secondary hover:bg-secondary hover:text-on-secondary transition-all font-label-md text-label-md font-bold border border-secondary/20" href="tel:103">
+          <span class="material-symbols-outlined text-[20px]">e911_emergency</span>
+          <span>Emergencias</span>
+        </a>
+
+        <button aria-label="Notificaciones" class="relative p-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button">
+          <span class="material-symbols-outlined text-[26px]">notifications</span>
+          <span class="absolute top-2 right-2 w-3 h-3 bg-secondary rounded-full ring-2 ring-surface animate-pulse"></span>
+        </button>
+
+        <!-- Perfil rápido -->
+        <a href="../perfil/index.html" class="flex items-center gap-space-sm pl-1 p-1 rounded-2xl hover:bg-surface-container transition-colors">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm shrink-0">
+            <span class="material-symbols-outlined text-[20px]">person</span>
+          </div>
+          <div class="hidden md:flex flex-col text-left">
+            <span class="font-label-md text-label-md text-on-surface font-extrabold leading-tight">Sofía M.</span>
+            <span class="font-label-sm text-label-sm text-primary font-bold">Vecina Activa</span>
+          </div>
+        </a>
+
+        <!-- Menú Hamburguesa Mobile -->
+        <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center text-on-surface hover:bg-surface-container rounded-xl transition-colors">
+          <span class="material-symbols-outlined text-[28px]">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú Desplegable Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-surface-container-lowest border-t border-surface-container shadow-xl">
+      <nav class="flex flex-col px-margin py-space-md gap-2">
+        <a class="font-label-md text-label-md text-primary font-bold py-2.5 px-3 rounded-lg bg-primary-fixed/20" href="./index.html">Feed de Alertas</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2.5 px-3" href="../index.html#radar">Mapa en Vivo &amp; Radar</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2.5 px-3" href="#">Publicar Alerta</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2.5 px-3" href="../perfil/index.html">Mis Reportes &amp; Perfil</a>
+        <a class="font-label-md text-label-md text-secondary font-bold py-2.5 px-3 flex items-center gap-2" href="tel:103">
+          <span class="material-symbols-outlined text-[20px]">call</span> Línea de Emergencias
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="w-full pt-20 bg-surface">
+    <div class="flex flex-col w-full">
+      
+      <!-- Top Command & Metric Ribbon -->
+      <section class="w-full bg-surface-container-lowest border-b border-surface-container/60 shadow-sm">
+        <div class="max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl">
+          <div class="grid grid-cols-12 gap-gutter-desktop items-center">
+            
+            <!-- Declaración de estado barrial -->
+            <div class="col-span-12 xl:col-span-7 flex flex-col gap-space-sm">
+              <div class="flex flex-wrap items-center gap-space-sm">
+                <span class="inline-flex items-center gap-2 px-space-md py-1.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm uppercase tracking-wider font-extrabold border border-primary/20">
+                  <span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+                  Red Barrial Activa 24/7
+                </span>
+                <span class="text-outline text-label-md font-label-md font-semibold">· Palermo Soho, Comuna 14</span>
+              </div>
+              <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight leading-tight font-extrabold">
+                Red Vecinal de Búsqueda &amp; Rescate
+              </h1>
+              <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                Monitoreo colaborativo en tiempo real. Cada segundo cuenta cuando una mascota se desorienta o pasa la noche sola en el barrio.
+              </p>
+            </div>
+            
+            <!-- KPIs en tiempo real (Métricas Destacadas y Grandes) -->
+            <div class="col-span-12 xl:col-span-5 grid grid-cols-3 gap-space-md bg-surface-container-low p-space-md rounded-3xl shadow-sm border border-surface-container">
+              
+              <!-- Métrica 1 -->
+              <div class="flex flex-col bg-surface-container-lowest p-space-md rounded-2xl shadow-sm justify-between">
+                <div class="flex items-center justify-between text-primary mb-1">
+                  <span class="material-symbols-outlined text-[24px]">groups</span>
+                  <span class="font-label-sm text-label-sm text-primary font-extrabold bg-primary-fixed/30 px-2 py-0.5 rounded-md">+18 hoy</span>
+                </div>
+                <span class="text-3xl font-extrabold text-on-surface tracking-tight mt-2">1.420</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant mt-1 font-bold">Vecinos Conectados</span>
+              </div>
+              
+              <!-- Métrica 2 -->
+              <div class="flex flex-col bg-surface-container-lowest p-space-md rounded-2xl shadow-sm justify-between border-l-4 border-secondary">
+                <div class="flex items-center justify-between text-secondary mb-1">
+                  <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">emergency</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+                </div>
+                <span class="text-3xl font-extrabold text-secondary tracking-tight mt-2">4</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant mt-1 font-bold">Alertas Activas</span>
+              </div>
+              
+              <!-- Métrica 3 -->
+              <div class="flex flex-col bg-surface-container-lowest p-space-md rounded-2xl shadow-sm justify-between border-l-4 border-primary">
+                <div class="flex items-center justify-between text-primary mb-1">
+                  <span class="material-symbols-outlined text-[24px]">favorite</span>
+                  <span class="font-label-sm text-label-sm text-primary font-extrabold bg-primary-fixed/30 px-2 py-0.5 rounded-md">96% tasa</span>
+                </div>
+                <span class="text-3xl font-extrabold text-primary tracking-tight mt-2">12</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant mt-1 font-bold">Reencuentros/Mes</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Barra de Filtros Interactiva (Sticky) -->
+      <section class="sticky top-20 z-40 w-full bg-surface/95 backdrop-blur-md shadow-sm py-space-md border-b border-surface-container/60">
+        <div class="max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex flex-wrap items-center justify-between gap-space-md">
+          
+          <!-- Filtro por Especie -->
+          <div class="flex items-center p-1.5 bg-surface-container-high rounded-2xl shadow-inner">
+            <button class="filter-species px-space-md py-2 rounded-xl bg-surface-container-lowest text-primary font-label-md text-label-md font-bold shadow-sm transition-all" data-species="all" type="button">
+              Todos (28)
+            </button>
+            <button class="filter-species px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-species="perro" type="button">
+              Perros (19)
+            </button>
+            <button class="filter-species px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-species="gato" type="button">
+              Gatos (8)
+            </button>
+            <button class="filter-species px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-species="otro" type="button">
+              Otros (1)
+            </button>
+          </div>
+          
+          <!-- Filtro por Estado de Alerta -->
+          <div class="flex flex-wrap items-center gap-space-xs">
+            <button class="filter-status px-space-md py-2 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-bold flex items-center gap-2 shadow-sm hover:opacity-90 transition-all" data-status="perdido" type="button">
+              <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
+              Perdidos Urgentes
+            </button>
+            <button class="filter-status px-space-md py-2 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container font-label-md text-label-md flex items-center gap-2 shadow-sm border border-surface-container transition-all" data-status="visto" type="button">
+              <span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span>
+              Vistos / Tránsito
+            </button>
+            <button class="filter-status px-space-md py-2 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container font-label-md text-label-md flex items-center gap-2 shadow-sm border border-surface-container transition-all" data-status="encontrado" type="button">
+              <span class="w-2.5 h-2.5 rounded-full bg-primary-fixed-dim"></span>
+              Encontrados
+            </button>
+          </div>
+          
+          <!-- Radio de Búsqueda y Botón de Emisión -->
+          <div class="flex items-center gap-space-sm ml-auto">
+            <div class="flex items-center bg-surface-container-lowest px-space-md py-2.5 rounded-2xl shadow-sm border border-surface-container text-on-surface">
+              <span class="material-symbols-outlined text-primary text-[20px] mr-2">radar</span>
+              <select class="bg-transparent font-label-md text-label-md text-on-surface font-bold focus:outline-none cursor-pointer">
+                <option>Radio: 1 km (Inmediato)</option>
+                <option selected>Radio: 3 km (Palermo Extendido)</option>
+                <option>Radio: 5 km (Comuna 14 + Colegiales)</option>
+                <option>Todo CABA y GBA</option>
+              </select>
+            </div>
+            
+            <a href="../publicar/index.html" class="h-12 px-space-lg rounded-2xl bg-secondary hover:bg-on-secondary-container text-on-secondary font-label-lg text-label-lg font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-all">
+              <span class="material-symbols-outlined text-[22px] animate-pulse">crisis_alert</span>
+              <span>Emitir Alerta Urgente</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Feed Principal en Grilla Dividida (8 cols / 4 cols) -->
+      <div class="w-full max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl">
+        <div class="grid grid-cols-12 gap-gutter-desktop">
+          
+          <!-- Columna Izquierda: Tarjetas de Mascotas (8 columnas) -->
+          <div class="col-span-12 xl:col-span-8 flex flex-col gap-space-lg">
+            
+            <!-- Banner de Aviso Barrial -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-space-md rounded-2xl bg-surface-container-low shadow-sm border border-surface-container gap-3">
+              <div class="flex items-center gap-space-md">
+                <div class="w-12 h-12 rounded-2xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[26px]">notifications_active</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md font-extrabold text-on-surface">Palermo Soho en Radar Máximo</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">2 nuevos reportes verificados en los últimos 45 minutos cerca de Plaza Armenia.</span>
+                </div>
+              </div>
+              <span class="font-label-sm text-label-sm px-3 py-1.5 bg-surface-container-lowest text-primary rounded-xl font-extrabold border border-primary/20 shrink-0">
+                Sincronizado ahora
+              </span>
+            </div>
+
+            <!-- Grilla Mosaico de Tarjetas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+              
+              <!-- Tarjeta 1: Milo (Destacada Urgente - 2 columnas) -->
+              <article class="pet-card col-span-1 md:col-span-2 lg:col-span-2 flex flex-col md:flex-row bg-surface-container-lowest rounded-3xl overflow-hidden shadow-md group hover:shadow-2xl transition-all border border-surface-container/60" data-species="perro" data-status="perdido">
+                <div class="relative w-full md:w-1/2 h-72 md:h-auto overflow-hidden">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrX79PXaOT8yYW1qv8pWQXZQgNBqMqvzD7BOkeTWnTE8nPXBNnE7KKljbemv3EptVP_x65e0amtPcJochHDHJpBMlQ3RrEu1opM5J4f5dPRbjI0nFRE_D_gxnSTuWyrWoaS1MGVGxZrPuyCUo3wJnVlcbuJikD73XryE8NdKasgTe4VeYa3pK_D7l64fVOpAvIuu98SBy_wMsfxIXqChIJrgjwKLEpSA2l9wp8vUU" alt="Milo - Golden Mestizo perdido"/>
+                  <div class="absolute top-4 left-4 flex flex-col gap-1.5">
+                    <span class="px-space-md py-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-extrabold shadow-lg flex items-center gap-1.5">
+                      <span class="w-2.5 h-2.5 rounded-full bg-surface-bright animate-ping"></span>
+                      PERDIDO URGENTE
+                    </span>
+                    <span class="px-space-sm py-1 rounded-lg bg-inverse-surface/85 text-inverse-on-surface font-label-sm text-label-sm backdrop-blur-sm self-start">
+                      Hace 4h
+                    </span>
+                  </div>
+                  <div class="absolute bottom-4 left-4 bg-tertiary-container/95 text-on-tertiary-container px-space-md py-2 rounded-2xl shadow-xl backdrop-blur-md border border-tertiary-fixed/30">
+                    <span class="font-label-sm text-label-sm font-extrabold uppercase tracking-wider block">Recompensa Ofrecida</span>
+                    <span class="font-headline-sm text-headline-sm font-black leading-tight text-white">$150.000 ARS</span>
+                  </div>
+                </div>
+                
+                <div class="p-space-lg flex flex-col justify-between flex-1 gap-space-md">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <h3 class="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">Milo</h3>
+                      <span class="px-3 py-1 bg-surface-container-high text-primary rounded-xl font-label-sm text-label-sm font-bold">Golden Mestizo</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-space-sm">
+                      <span class="material-symbols-outlined text-secondary text-[22px]">location_on</span>
+                      <span class="font-extrabold text-on-surface">Plaza Armenia (Malabia y Nicaragua)</span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed line-clamp-3">
+                      Tiene collar azul reforzado con chapita grabada. Es sumamente asustadizo con ruidos de motos pero responde de inmediato a silbidos suaves y golosinas caninas.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-space-md">
+                      <span class="px-3 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-bold">Macho · 3 años</span>
+                      <span class="px-3 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-bold">Tamaño Grande</span>
+                      <span class="px-3 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-bold">Sin medicación</span>
+                    </div>
+                  </div>
+                  
+                  <div class="flex flex-col sm:flex-row items-center gap-space-sm pt-space-sm">
+                    <button class="btn-avistamiento w-full sm:flex-1 h-12 rounded-2xl bg-secondary text-on-secondary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-md hover:opacity-95 active:scale-95 transition-all" data-pet="Milo" type="button">
+                      <span class="material-symbols-outlined text-[22px]">visibility</span>
+                      <span>¡Lo acabo de ver!</span>
+                    </button>
+                    <a href="#" class="w-full sm:w-auto px-space-lg h-12 rounded-2xl bg-surface-container-high hover:bg-primary-container hover:text-on-primary text-primary font-label-lg text-label-lg font-bold flex items-center justify-center transition-colors">
+                      Ficha Completa
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Tarjeta 2: Luna (Gata Siamesa / Visto) -->
+              <article class="pet-card col-span-1 flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm group hover:shadow-xl transition-all border border-surface-container/60" data-species="gato" data-status="visto">
+                <div class="relative w-full h-60 overflow-hidden">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpOp5UgOw6SgKKUxKyXJHFB2hSHug-Wep_H9UHy_t9x0-dN7vgH8Pfgol--FM_7dm2vZreUTYaF_dpKe89uA6Tm6bvvwW9I8h7ECDUeRbcWEy6CqPW99jrGJVmABO0siRTektP8lJ_NDi7OcUSxnEc_BPow_Jtd7vZMMmUOsMgGfIfkitRjdtcBEzxQtmq0OGFq6-r4Zg-coTOlD6otyQz55IOKL9lnCxDeG2IH3k" alt="Luna - Gata Siamesa"/>
+                  <div class="absolute top-4 left-4">
+                    <span class="px-space-md py-1.5 rounded-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-sm text-label-sm font-extrabold shadow-md">
+                      VISTO RECIENTE
+                    </span>
+                  </div>
+                  <div class="absolute bottom-4 right-4 bg-inverse-surface/85 text-inverse-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded-lg backdrop-blur-sm">
+                    Hace 2h
+                  </div>
+                </div>
+                <div class="p-space-md flex flex-col flex-1 justify-between gap-space-md">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface font-extrabold">Luna</h3>
+                      <span class="px-2.5 py-1 rounded-lg bg-surface-container-high text-primary font-label-sm text-label-sm font-bold">Siamesa</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md mb-space-xs">
+                      <span class="material-symbols-outlined text-outline text-[20px]">pin_drop</span>
+                      <span class="font-bold text-on-surface">Malabia &amp; Gorriti</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1 leading-relaxed">
+                      Vista sobre un tejado bajo y luego bajando hacia jardín interior. Ojos celestes muy llamativos.
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 pt-2">
+                    <button class="btn-avistamiento flex-1 h-11 rounded-2xl bg-primary-container text-on-primary font-label-md text-label-md font-bold text-center hover:opacity-95 transition-opacity flex items-center justify-center gap-1" data-pet="Luna" type="button">
+                      Notificar Dueño
+                    </button>
+                    <button aria-label="Compartir" class="btn-share w-11 h-11 rounded-2xl bg-surface-container-high text-on-surface hover:bg-surface-container transition-colors flex items-center justify-center" type="button">
+                      <span class="material-symbols-outlined text-[20px]">share</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Tarjeta 3: Rocco (Bulldog Francés / Perdido) -->
+              <article class="pet-card col-span-1 flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm group hover:shadow-xl transition-all border border-surface-container/60" data-species="perro" data-status="perdido">
+                <div class="relative w-full h-60 overflow-hidden">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADgG6w3q9S9IOkVKGGeurGdBIPdZmUCGQTkRsW1CqTHwP1ejxwdj7v_6e3vPfKZNyKa4L__rj59DWIsujRqBDlSe4nCg1KLk_f47q35GSHG8_rlcDqDw_HB1JfMXZemP1hLC7_DtDgMsOitxBTVdJU535xFCginJynoAD2OQelzRRP0u5e2UWmy8fWaP4N2lF22QFxWsCK2VkFv2eRJhSlKUY615qwGIQuVTbVfO0" alt="Rocco - Bulldog Francés"/>
+                  <div class="absolute top-4 left-4">
+                    <span class="px-space-md py-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-extrabold shadow-md">
+                      PERDIDO
+                    </span>
+                  </div>
+                  <div class="absolute bottom-4 right-4 bg-inverse-surface/85 text-inverse-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded-lg backdrop-blur-sm">
+                    Hace 1h
+                  </div>
+                </div>
+                <div class="p-space-md flex flex-col flex-1 justify-between gap-space-md">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface font-extrabold">Rocco</h3>
+                      <span class="px-2.5 py-1 rounded-lg bg-surface-container-high text-primary font-label-sm text-label-sm font-bold">Bulldog Francés</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md mb-space-xs">
+                      <span class="material-symbols-outlined text-secondary text-[20px]">location_on</span>
+                      <span class="font-bold text-on-surface">Costa Rica &amp; Thames</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1 leading-relaxed">
+                      Arnés rojo con correa rota colgando. Escapó ante un estallido pirotécnico. Necesita gotas oftálmicas.
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 pt-2">
+                    <button class="btn-avistamiento flex-1 h-11 rounded-2xl bg-secondary text-on-secondary font-label-md text-label-md font-bold text-center hover:opacity-95 transition-opacity flex items-center justify-center gap-1" data-pet="Rocco" type="button">
+                      ¡Avistado!
+                    </button>
+                    <button aria-label="Ver mapa" class="w-11 h-11 rounded-2xl bg-surface-container-high text-on-surface hover:bg-surface-container transition-colors flex items-center justify-center" type="button">
+                      <span class="material-symbols-outlined text-[20px]">map</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Tarjeta 4: Mora (Cachorrita en Tránsito - 2 columnas) -->
+              <article class="pet-card col-span-1 md:col-span-2 lg:col-span-2 flex flex-col sm:flex-row bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm group hover:shadow-xl transition-all border border-surface-container/60" data-species="perro" data-status="visto">
+                <div class="relative w-full sm:w-2/5 h-60 sm:h-auto overflow-hidden">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHnGTlSFRZdWEt3PgyikQ9O0WNifn8M2lg-dRUawt810kAxizGha5YqrZ_BYJStEUv3zpsrge2_lw6BTIzUIX6S3MXZQcbbxmJebPUCdANWlpHUuwK1SUWdJOk8lT3hNwQqhiOUBknIRYrsUCRcTGWXuSMYFiL2K-k9YPsTliCJ0Sf35OVOQFGWtBdtp7LDrzFlU8myGpGoZCbD8d7Zn4cjjXBiwj6wANdxd5JhdU" alt="Mora - En tránsito"/>
+                  <div class="absolute top-4 left-4">
+                    <span class="px-space-md py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-extrabold shadow-md">
+                      EN TRÁNSITO SEGURO
+                    </span>
+                  </div>
+                </div>
+                <div class="p-space-md sm:p-space-lg flex flex-col justify-between flex-1 gap-space-sm">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-surface font-extrabold">Mora (Temporal)</h3>
+                        <span class="font-label-md text-label-md text-primary font-bold">Rescatada en Plaza Serrano</span>
+                      </div>
+                      <span class="px-3 py-1 bg-surface-container-high rounded-xl text-on-surface-variant font-label-sm text-label-sm font-bold">Cachorra ~4 meses</span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-2">
+                      Encontrada desorientada sin collar por vecina de Honduras al 4800. Limpia, sana y con atención veterinaria inicial. Buscando a sus tutores originales o adopción responsable transitoria.
+                    </p>
+                  </div>
+                  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-space-xs border-t border-surface-container mt-2">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-extrabold text-label-md">
+                        MC
+                      </div>
+                      <span class="font-label-md text-label-md text-on-surface-variant">En custodia de <b class="text-on-surface">Mariana C.</b></span>
+                    </div>
+                    <button class="h-11 px-space-md rounded-2xl bg-primary-container text-on-primary font-label-md text-label-md font-bold hover:opacity-95 transition-opacity" type="button">
+                      Reclamar Mascota
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Tarjeta 5: CTA Comunitario Rápido -->
+              <article class="col-span-1 flex flex-col justify-between p-space-lg bg-gradient-to-br from-primary-container via-primary to-primary-container rounded-3xl text-on-primary shadow-lg border border-primary-fixed/20">
+                <div class="flex flex-col gap-space-sm">
+                  <div class="w-14 h-14 rounded-2xl bg-surface-container-lowest/20 flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined text-[30px] text-white">add_a_photo</span>
+                  </div>
+                  <h3 class="font-headline-sm text-headline-sm font-extrabold text-white mt-1">¿Viste un animal solo por Palermo?</h3>
+                  <p class="font-body-md text-body-md text-white/90 leading-relaxed">
+                    Una simple foto y la esquina aproximada alertan a 1.400 vecinos en menos de 90 segundos.
+                  </p>
+                </div>
+                <button class="w-full mt-space-md h-12 rounded-2xl bg-surface-container-lowest text-primary font-label-lg text-label-lg font-extrabold shadow-lg hover:bg-surface-bright active:scale-95 transition-all" type="button">
+                  Subir Avistamiento Exprés
+                </button>
+              </article>
+
+            </div>
+
+            <!-- Línea de Tiempo de Avistamientos Verificados -->
+            <div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm border border-surface-container/60 flex flex-col gap-space-md">
+              <div class="flex items-center justify-between">
+                <h3 class="font-headline-sm text-headline-sm font-extrabold text-on-surface flex items-center gap-space-sm">
+                  <span class="material-symbols-outlined text-primary text-[26px]">history</span>
+                  <span>Línea de Tiempo de Avistamientos</span>
+                </h3>
+                <span class="font-label-md text-label-md text-primary font-bold cursor-pointer hover:underline">Actualización en directo</span>
+              </div>
+              
+              <div class="relative pl-7 space-y-5 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-highest">
+                <!-- Evento 1 -->
+                <div class="relative flex items-start justify-between gap-space-md">
+                  <span class="absolute -left-7 top-1.5 w-4 h-4 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></span>
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface font-extrabold">Vecino Juan P. reportó coincidencia visual de Milo</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Visto trotando en dirección a Av. Scalabrini Ortiz y Soler.</span>
+                  </div>
+                  <span class="font-label-sm text-label-sm text-outline font-bold shrink-0">Hace 14 min</span>
+                </div>
+                
+                <!-- Evento 2 -->
+                <div class="relative flex items-start justify-between gap-space-md">
+                  <span class="absolute -left-7 top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-surface-container-lowest"></span>
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface font-extrabold">Patrulla Comunitaria Barrio Norte activó cuadrante</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">3 voluntarios a pie peinando Plaza Unidad Latinoamericana.</span>
+                  </div>
+                  <span class="font-label-sm text-label-sm text-outline font-bold shrink-0">Hace 32 min</span>
+                </div>
+                
+                <!-- Evento 3 -->
+                <div class="relative flex items-start justify-between gap-space-md">
+                  <span class="absolute -left-7 top-1.5 w-4 h-4 rounded-full bg-tertiary-fixed-dim ring-4 ring-surface-container-lowest"></span>
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface font-extrabold">Veterinaria 'Hocicos Soho' recibió reporte de Luna</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Chip scan verificado sin datos actualizados, se solicita foto de collar.</span>
+                  </div>
+                  <span class="font-label-sm text-label-sm text-outline font-bold shrink-0">Hace 1h 10m</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Columna Derecha: Sidebar & Radar Hub (4 columnas) -->
+          <aside class="col-span-12 xl:col-span-4 flex flex-col gap-space-lg">
+            
+            <!-- Radar en Vivo: Palermo -->
+            <div class="bg-surface-container-lowest rounded-3xl p-space-md shadow-sm border border-surface-container/60 flex flex-col gap-space-sm">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-primary font-extrabold font-label-md text-label-md">
+                  <span class="material-symbols-outlined text-[24px] animate-spin" style="animation-duration: 6s;">track_changes</span>
+                  <span>Radar en Vivo: Palermo</span>
+                </div>
+                <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-label-sm font-extrabold rounded-full">
+                  4 Focos Críticos
+                </span>
+              </div>
+              
+              <!-- Mapa estático con overlay radar -->
+              <div class="w-full h-60 bg-cover bg-center rounded-2xl relative overflow-hidden shadow-inner flex items-end p-space-sm border border-surface-container" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATdf06Ct5B8-1VNpJ-KLyjShNQI9zidTJTwyCXdbmKUufKGiprgAkulYEA6fNWiDp-l3IZI5z5sAfXhqH_9op1xnEh67viNsNmjNEqGci8Czya7sSnC602aw6nmKI8RvGM55B6lLKUSQuVvG5dmKUtnAKLOQ4DMVNhceYGtHtoNkQu5gseOvnm4yy4ZH3lowyqmObIsA9S61W4-LhS4J342ReQTRzvn0frdkpO9Qs')">
+                <div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+                <div class="relative z-10 w-full bg-surface/95 backdrop-blur-md p-space-sm rounded-xl flex items-center justify-between text-on-surface shadow-md">
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md font-extrabold">Zona Armenia / Thames</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">Radio cubierto al 78%</span>
+                  </div>
+                  <button class="p-2 rounded-xl bg-primary text-on-primary hover:opacity-90 transition-opacity" title="Expandir mapa" type="button">
+                    <span class="material-symbols-outlined text-[18px]">fullscreen</span>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-space-xs pt-1">
+                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-surface-container/50">
+                  <div class="w-3.5 h-3.5 rounded-full bg-secondary"></div>
+                  <span class="font-label-sm text-label-sm text-on-surface font-bold">Armenia: 2 avisos</span>
+                </div>
+                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-surface-container/50">
+                  <div class="w-3.5 h-3.5 rounded-full bg-tertiary-fixed-dim"></div>
+                  <span class="font-label-sm text-label-sm text-on-surface font-bold">Gorriti: 1 tránsito</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 24/7 Caja de Emergencia Vecinal -->
+            <div class="bg-secondary text-on-secondary rounded-3xl p-space-lg shadow-lg flex flex-col gap-space-md border border-secondary-container">
+              <div class="flex items-start gap-space-md">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-lowest/20 flex items-center justify-center shrink-0 backdrop-blur-sm">
+                  <span class="material-symbols-outlined text-[32px] text-on-secondary" style="font-variation-settings: 'FILL' 1;">phone_in_talk</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider font-extrabold text-secondary-fixed">Guardia Vecinal Activa</span>
+                  <h4 class="font-headline-sm text-headline-sm font-black text-on-secondary leading-tight mt-0.5">Línea Comunitaria de Rescate</h4>
+                </div>
+              </div>
+              <p class="font-body-md text-body-md text-on-secondary/95 leading-relaxed">
+                ¿Animal accidentado, atrapado o en riesgo inmediato en la vía pública? Activá al equipo de rescate con transporte y veterinario de guardia.
+              </p>
+              <a class="w-full h-13 py-3 rounded-2xl bg-surface-container-lowest text-secondary font-label-lg text-label-lg font-black text-center hover:bg-surface-bright active:scale-95 transition-all shadow-md flex items-center justify-center gap-2" href="tel:0800PATITAS">
+                <span class="material-symbols-outlined text-[24px]">call</span>
+                <span>Llamar al 0800-PATITAS (24h)</span>
+              </a>
+            </div>
+
+            <!-- Herramientas de Difusión Rápida -->
+            <div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm border border-surface-container/60 flex flex-col gap-space-md">
+              <div class="flex items-center justify-between">
+                <h4 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Herramientas de Difusión</h4>
+                <span class="material-symbols-outlined text-primary text-[24px]">campaign</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Multiplicá el alcance en postes barriales, comercios amigos y grupos de WhatsApp de consorcios.
+              </p>
+              <div class="flex flex-col gap-space-sm">
+                <a class="flex items-center justify-between p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors group border border-surface-container/50" href="#">
+                  <div class="flex items-center gap-space-sm">
+                    <span class="material-symbols-outlined text-primary text-[26px]">print</span>
+                    <div class="flex flex-col">
+                      <span class="font-label-md text-label-md font-bold text-on-surface">Generador de Cartel A4 (PDF)</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Con QR de geolocalización directa</span>
+                    </div>
+                  </div>
+                  <span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform text-[20px]">download</span>
+                </a>
+                <a class="flex items-center justify-between p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors group border border-surface-container/50" href="#">
+                  <div class="flex items-center gap-space-sm">
+                    <span class="material-symbols-outlined text-tertiary-container text-[26px]">photo_camera_front</span>
+                    <div class="flex flex-col">
+                      <span class="font-label-md text-label-md font-bold text-on-surface">Kit para Historias &amp; Reels</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Formato 9:16 con datos de contacto</span>
+                    </div>
+                  </div>
+                  <span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform text-[20px]">download</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Héroes del Mes -->
+            <div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm border border-surface-container/60 flex flex-col gap-space-md">
+              <div class="flex items-center justify-between">
+                <div class="flex flex-col">
+                  <h4 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Héroes del Mes</h4>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant font-bold">Rescatistas activos en Palermo</span>
+                </div>
+                <span class="material-symbols-outlined text-tertiary-fixed-dim text-[28px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+              </div>
+              <div class="flex flex-col gap-space-md divide-y divide-surface-container">
+                <!-- Héroe 1 -->
+                <div class="flex items-center justify-between pt-3">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-extrabold text-label-md shadow-sm">
+                      EP
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-label-md text-label-md font-extrabold text-on-surface">Esteban P.</span>
+                      <span class="font-label-sm text-label-sm text-primary font-bold">4 reencuentros mediados</span>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-extrabold shadow-sm">#1 Oro</span>
+                </div>
+                <!-- Héroe 2 -->
+                <div class="flex items-center justify-between pt-3">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-11 h-11 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-extrabold text-label-md shadow-sm">
+                      LR
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-label-md text-label-md font-extrabold text-on-surface">Lucía Romero</span>
+                      <span class="font-label-sm text-label-sm text-primary font-bold">3 rescates en tránsito</span>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-extrabold">#2 Plata</span>
+                </div>
+                <!-- Héroe 3 -->
+                <div class="flex items-center justify-between pt-3">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-11 h-11 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-extrabold text-label-md shadow-sm">
+                      V
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-label-md text-label-md font-extrabold text-on-surface">Vet. Costa Rica</span>
+                      <span class="font-label-sm text-label-sm text-primary font-bold">Microchip point barrial</span>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold">Aliado</span>
+                </div>
+              </div>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container mt-space-xl">
+    <div class="max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center text-on-primary">
+          <span class="material-symbols-outlined text-[20px]">pets</span>
+        </div>
+        <span class="font-headline-sm text-headline-sm font-extrabold text-primary">Patitas a Casa</span>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left max-w-xl">
+        Plataforma comunitaria de respuesta rápida para reencuentros de mascotas perdidas y avistamientos barriales.
+      </p>
+      <div class="flex items-center gap-space-lg">
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="#">Términos Comunitarios</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="#">Línea de Rescate</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="#">Privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts modulares -->
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="./alertas.js"></script>
+</body>
+</html>

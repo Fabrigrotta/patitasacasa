@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Patitas a Casa | Mapa en Vivo &amp; Radar Barrial</title>
+  
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- CSS Compilado -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)] border-b border-surface-container/60">
+    <div class="h-20 max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between gap-space-lg">
+      
+      <!-- Logo -->
+      <a href="../index.html" class="flex items-center gap-space-md shrink-0 group">
+        <div class="w-12 h-12 rounded-2xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm group-hover:scale-105 transition-transform">
+          <span class="material-symbols-outlined text-[26px]">pets</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm font-extrabold text-primary leading-tight tracking-tight">Patitas a Casa</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-bold tracking-wider uppercase">Red Comunitaria</span>
+        </div>
+      </a>
+
+      <!-- Selector Rápido de Zona Barrial -->
+      <div class="hidden xl:flex items-center flex-1 max-w-md bg-surface-container-low rounded-2xl px-space-md py-2.5 shadow-sm border border-surface-container/50">
+        <span class="material-symbols-outlined text-primary text-[22px] mr-space-sm">location_on</span>
+        <div class="flex flex-col flex-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Zona de Cobertura Activa</span>
+          <span class="font-label-md text-label-md text-on-surface font-extrabold truncate mt-0.5">Palermo Soho, CABA</span>
+        </div>
+        <span class="material-symbols-outlined text-outline text-[20px] ml-space-xs">expand_more</span>
+      </div>
+
+      <!-- Navegación Escritorio -->
+      <nav class="hidden lg:flex items-center gap-2">
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../alertas/index.html">Feed de Alertas</a>
+        <a class="px-space-md py-2.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold rounded-xl shadow-sm transition-all" href="./index.html">Mapa Radar</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../publicar/index.html">Publicar Mascota</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../transito/index.html">Hogares de Tránsito</a>
+        <a class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../perfil/index.html">Mi Perfil</a>
+      </nav>
+
+      <!-- Usuario y Acciones -->
+      <div class="flex items-center gap-space-md shrink-0">
+        <a class="hidden sm:flex items-center gap-2 px-space-md py-2.5 rounded-xl bg-secondary/10 text-secondary hover:bg-secondary hover:text-on-secondary transition-all font-label-md text-label-md font-bold border border-secondary/20" href="tel:103">
+          <span class="material-symbols-outlined text-[20px]">e911_emergency</span>
+          <span>Emergencias</span>
+        </a>
+
+        <a href="../perfil/index.html" class="flex items-center gap-space-sm pl-2">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm">
+            <span class="material-symbols-outlined text-[20px]">person</span>
+          </div>
+          <div class="hidden md:flex flex-col text-left">
+            <span class="font-label-md text-label-md text-on-surface font-extrabold leading-tight">Sofía M.</span>
+            <span class="font-label-sm text-label-sm text-primary font-bold">Vecina Activa</span>
+          </div>
+        </a>
+
+        <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center text-on-surface hover:bg-surface-container rounded-xl transition-colors">
+          <span class="material-symbols-outlined text-[28px]">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú Desplegable Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-surface-container-lowest border-t border-surface-container shadow-xl">
+      <nav class="flex flex-col px-margin py-space-md gap-2">
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2.5 px-3" href="../alertas/index.html">Feed de Alertas</a>
+        <a class="font-label-md text-label-md text-primary font-bold py-2.5 px-3 rounded-lg bg-primary-fixed/20" href="./index.html">Mapa en Vivo &amp; Radar</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2.5 px-3" href="../publicar/index.html">Publicar Mascota</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2.5 px-3" href="../perfil/index.html">Mi Perfil</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
+    <div class="w-full max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop py-space-md">
+      
+      <!-- Top Bar Notice & Stats Ticker -->
+      <div class="flex flex-wrap items-center justify-between gap-space-md bg-surface-container-low px-space-lg py-space-md rounded-2xl mb-space-md shadow-sm border border-surface-container/60">
+        <div class="flex items-center gap-space-md">
+          <span class="flex h-3.5 w-3.5 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-secondary"></span>
+          </span>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-label-md text-label-md text-secondary font-black uppercase tracking-wider">Radar Comunitario Palermo Activo</span>
+            <span class="text-outline-variant">•</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">3 patrullas vecinales en calle ahora mismo</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-space-lg">
+          <div class="flex items-center gap-2 text-primary font-bold font-label-md text-label-md">
+            <span class="material-symbols-outlined text-[20px]">verified</span>
+            <span>14 Reencuentros este mes</span>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+            <span class="material-symbols-outlined text-[20px] text-primary">cell_tower</span>
+            <span>Red Mesh &amp; GPS Vecinal: Óptima</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Split Screen Workspace -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start h-[calc(100vh-190px)] min-h-[720px]">
+        
+        <!-- PANEL IZQUIERDO: Casos Activos y Radio de Búsqueda (5 cols) -->
+        <section class="lg:col-span-5 h-full flex flex-col bg-surface-container-lowest rounded-3xl shadow-sm border border-surface-container/60 overflow-hidden">
+          
+          <!-- Encabezado de Radio y Controles -->
+          <div class="p-space-lg bg-surface-container-low border-b border-surface-container/60 space-y-space-md">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-2 text-secondary mb-1">
+                  <span class="material-symbols-outlined text-[22px] animate-spin" style="animation-duration: 4s;">radar</span>
+                  <span class="font-label-sm text-label-sm font-black uppercase tracking-wider">Monitoreo Perimetral</span>
+                </div>
+                <h1 class="font-headline-md text-headline-md text-on-surface font-black tracking-tight">Radar de Búsqueda Activa</h1>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-black shadow-sm">
+                2 Urgentes
+              </span>
+            </div>
+
+            <!-- Botones de Radio de Cobertura -->
+            <div class="flex flex-col gap-1.5">
+              <label class="font-label-sm text-label-sm text-on-surface-variant flex justify-between font-bold">
+                <span>Radio de Cobertura Geográfica</span>
+                <span class="text-primary font-black" id="current-radius-label">1.0 km de alcance</span>
+              </label>
+              
+              <div class="grid grid-cols-4 gap-2 bg-surface-container-highest p-1.5 rounded-2xl">
+                <button class="radius-btn py-2 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface font-semibold transition-all" onclick="setRadius('500m', this)" type="button">
+                  500m
+                </button>
+                <button class="radius-btn py-2 rounded-xl font-label-md text-label-md bg-primary text-on-primary font-black shadow-md transition-all" onclick="setRadius('1.0 km', this)" type="button">
+                  1.0 km
+                </button>
+                <button class="radius-btn py-2 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface font-semibold transition-all" onclick="setRadius('2.5 km', this)" type="button">
+                  2.5 km
+                </button>
+                <button class="radius-btn py-2 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface font-semibold transition-all" onclick="setRadius('5.0 km', this)" type="button">
+                  5.0 km
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feed Desplazable de Casos -->
+          <div class="flex-1 overflow-y-auto p-space-lg space-y-space-md pr-space-md">
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-extrabold block">
+              Casos activos en Palermo Soho
+            </span>
+
+            <!-- Caso 1: Milo -->
+            <a href="../detalle/index.html" class="block p-space-md rounded-2xl bg-surface-container-low border-2 border-secondary/40 shadow-sm hover:shadow-md transition-all group">
+              <div class="flex gap-space-md items-center">
+                <div class="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-sm">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="Milo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRBojV1UU_XT67dcYeBKn_EzbjXGKIRZpYYaVomtOI4iqAbkdp8pe4ArGfQDd67V-UoGi6zJV4xiGA7ol3KovzCtEQ746nUcp6DT66nSyb-OrU0Yl1hTGLBO_3qgCYneZ7aQV66hXEiV2DQyBvtO7v3R0u7zHCPUYcA3EUURG34xiNvREwRUMVWIT0g4VebF9F3Q3xPGX5hujTvW_3k7bLLWtFaLP2m_kC8jmTR80"/>
+                  <span class="absolute bottom-1 right-1 w-4 h-4 bg-secondary rounded-full ring-2 ring-surface animate-ping"></span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-black truncate">Milo</h3>
+                    <span class="px-2.5 py-0.5 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm font-black uppercase">Extraviado</span>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant font-medium truncate mt-0.5">Golden Mestizo • Macho • 3 años</p>
+                  <div class="flex items-center gap-1.5 mt-1.5 text-secondary font-bold font-label-sm text-label-sm">
+                    <span class="material-symbols-outlined text-[18px]">location_on</span>
+                    <span class="truncate">Costa Rica &amp; Malabia (Hace 12 min)</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Caso 2: Simón -->
+            <div class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 hover:bg-surface-container-low transition-all shadow-sm cursor-pointer opacity-90 hover:opacity-100 group">
+              <div class="flex gap-space-md items-center">
+                <div class="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-sm">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="Simón" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANmGZnYcfZPYGwQodptjZmjpvSm8I7HX0VpeTIUQVYYQUU-Qn5_KIdDYxUn24jzueY3Lw-1fx79Rq1WqhOArMkuQY9mYwtjEoy3mDpJKZ8HPOhGycJnkeFO6BxZwj9ImMIF9GkZTifsE2KFrU0_CswHgXWoQVPc5MPNM53U65CvuXblou38Wo95qkN58mZfr6BRaJAj4uUb3-GkhapsXU2r84ia-fUE86s1jKOf9Q"/>
+                  <span class="absolute bottom-1 right-1 w-4 h-4 bg-tertiary-fixed-dim rounded-full ring-2 ring-surface"></span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-black truncate">Simón</h3>
+                    <span class="px-2.5 py-0.5 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-extrabold uppercase">Visto en Techo</span>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant font-medium truncate mt-0.5">Gato Atigrado • Macho</p>
+                  <div class="flex items-center gap-1.5 mt-1.5 text-on-surface font-bold font-label-sm text-label-sm">
+                    <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">pin_drop</span>
+                    <span class="truncate">Honduras y Armenia (Hace 45 min)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Caso 3: Luna -->
+            <div class="p-space-md rounded-2xl bg-surface-container-lowest border border-surface-container/60 hover:bg-surface-container-low transition-all shadow-sm cursor-pointer opacity-90 hover:opacity-100 group">
+              <div class="flex gap-space-md items-center">
+                <div class="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-sm">
+                  <img class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="Luna" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpOp5UgOw6SgKKUxKyXJHFB2hSHug-Wep_H9UHy_t9x0-dN7vgH8Pfgol--FM_7dm2vZreUTYaF_dpKe89uA6Tm6bvvwW9I8h7ECDUeRbcWEy6CqPW99jrGJVmABO0siRTektP8lJ_NDi7OcUSxnEc_BPow_Jtd7vZMMmUOsMgGfIfkitRjdtcBEzxQtmq0OGFq6-r4Zg-coTOlD6otyQz55IOKL9lnCxDeG2IH3k"/>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-black truncate">Luna</h3>
+                    <span class="px-2.5 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-extrabold uppercase">En Tránsito</span>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant font-medium truncate mt-0.5">Siamesa • Ojos celestes</p>
+                  <div class="flex items-center gap-1.5 mt-1.5 text-primary font-bold font-label-sm text-label-sm">
+                    <span class="material-symbols-outlined text-[18px]">verified</span>
+                    <span class="truncate">Custodia transitoria segura</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- PANEL DERECHO: Mapa Extendido en Vivo (7 cols) -->
+        <section class="lg:col-span-7 h-full flex flex-col bg-surface-container-lowest rounded-3xl shadow-sm border border-surface-container/60 overflow-hidden relative">
+          
+          <!-- Contenedor del Mapa Cartográfico de Palermo Soho -->
+          <div class="w-full h-full relative bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATdf06Ct5B8-1VNpJ-KLyjShNQI9zidTJTwyCXdbmKUufKGiprgAkulYEA6fNWiDp-l3IZI5z5sAfXhqH_9op1xnEh67viNsNmjNEqGci8Czya7sSnC602aw6nmKI8RvGM55B6lLKUSQuVvG5dmKUtnAKLOQ4DMVNhceYGtHtoNkQu5gseOvnm4yy4ZH3lowyqmObIsA9S61W4-LhS4J342ReQTRzvn0frdkpO9Qs');">
+            
+            <!-- Radar Scan Overlay Animation -->
+            <div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+
+            <!-- Marcador 1: Milo (Costa Rica y Malabia) -->
+            <button class="map-pin-btn absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group cursor-pointer" data-loc="Costa Rica 4812 (esq. Malabia)" type="button">
+              <div class="px-space-sm py-1 bg-secondary text-on-secondary font-label-sm text-label-sm font-black rounded-full shadow-2xl flex items-center gap-1 animate-bounce">
+                <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+                Milo visto hace 12m
+              </div>
+              <span class="material-symbols-outlined text-secondary text-[44px] drop-shadow-2xl">location_on</span>
+            </button>
+
+            <!-- Marcador 2: Simón (Honduras y Armenia) -->
+            <button class="map-pin-btn absolute top-2/3 left-1/3 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group cursor-pointer" data-loc="Honduras y Armenia" type="button">
+              <div class="px-space-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-black rounded-full shadow-lg flex items-center gap-1">
+                Simón
+              </div>
+              <span class="material-symbols-outlined text-tertiary text-[36px] drop-shadow-lg">pets</span>
+            </button>
+
+            <!-- Controles Flotantes Superiores del Mapa -->
+            <div class="absolute top-space-md left-space-md right-space-md flex items-center justify-between pointer-events-none z-10">
+              <div class="bg-surface-container-lowest/95 backdrop-blur-md px-space-md py-2 rounded-2xl shadow-md pointer-events-auto flex items-center gap-2 border border-surface-container">
+                <span class="material-symbols-outlined text-primary text-[20px]">layers</span>
+                <span class="font-label-sm text-label-sm text-on-surface font-extrabold">Capa: Patrullas Barriales + Veterinarias</span>
+              </div>
+
+              <div class="flex items-center gap-1 bg-surface-container-lowest/95 backdrop-blur-md p-1 rounded-2xl shadow-md pointer-events-auto border border-surface-container">
+                <button class="px-3 py-1.5 rounded-xl bg-surface-container text-primary font-label-sm text-label-sm font-black" type="button">Callejero</button>
+                <button class="px-3 py-1.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm font-bold transition-colors" type="button">Satélite</button>
+              </div>
+            </div>
+
+            <!-- Modal Flotante Inferior de Avistamiento Confirmado -->
+            <div id="floating-sighting-modal" class="absolute bottom-space-md left-space-md right-space-md max-w-xl mx-auto bg-surface-container-lowest/95 backdrop-blur-xl p-space-md sm:p-space-lg rounded-3xl shadow-2xl border border-surface-container z-20 pointer-events-auto">
+              <div class="flex flex-col sm:flex-row items-center justify-between gap-space-md">
+                <div class="flex items-center gap-space-md w-full sm:w-auto">
+                  <div class="w-13 h-13 rounded-2xl bg-secondary-fixed flex items-center justify-center text-secondary shrink-0 p-2 shadow-sm">
+                    <span class="material-symbols-outlined text-[28px]">fmd_good</span>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-2">
+                      <span class="font-label-sm text-label-sm font-black text-secondary uppercase tracking-wider">Avistamiento Verificado</span>
+                      <span class="text-outline-variant">•</span>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant font-bold">Hace 12 min</span>
+                    </div>
+                    <h4 id="modal-location-title" class="font-headline-sm text-headline-sm text-on-surface font-black truncate mt-0.5">Costa Rica 4812 (esq. Malabia)</h4>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Testigo: Martín G. • Visto corriendo hacia Plaza Serrano</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end">
+                  <a href="../detalle/index.html" class="flex-1 sm:flex-none h-11 px-4 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-md text-label-md font-bold flex items-center justify-center gap-1.5">
+                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                    <span>Ver Ficha</span>
+                  </a>
+                  <a href="tel:+5491198765432" class="flex-1 sm:flex-none h-11 px-4 rounded-xl bg-primary text-on-primary hover:bg-primary-container transition-colors font-label-md text-label-md font-black flex items-center justify-center gap-1.5 shadow-md">
+                    <span class="material-symbols-outlined text-[20px]">chat</span>
+                    <span>Contactar</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container mt-space-xl">
+    <div class="max-w-[1440px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center text-on-primary">
+          <span class="material-symbols-outlined text-[20px]">pets</span>
+        </div>
+        <span class="font-headline-sm text-headline-sm font-extrabold text-primary">Patitas a Casa</span>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left max-w-xl">
+        Plataforma comunitaria de respuesta rápida para reencuentros de mascotas perdidas y avistamientos barriales.
+      </p>
+      <div class="flex items-center gap-space-lg">
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="#">Términos Comunitarios</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="#">Línea de Rescate</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="#">Privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="./mapa.js"></script>
+</body>
+</html>
